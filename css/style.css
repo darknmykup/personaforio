@@ -1,0 +1,550 @@
+:root,
+[data-theme=red] {
+  --ac: #e5001c;
+  --ad: #e5001c;
+  --ac2: #f3c623;
+  --on: #f6f3ec;
+  --sh: .8;
+  --black: #050505;
+  --white: #f6f3ec
+}
+
+[data-theme=teal] {
+  --ac: #18c3a8;
+  --ad: #0b8a77;
+  --ac2: #ff4b2b;
+  --on: #03120f;
+  --sh: .5
+}
+
+[data-theme=green] {
+  --ac: #52dc22;
+  --ad: #1d7d12;
+  --ac2: #e8352b;
+  --on: #04140a;
+  --sh: .45
+}
+
+[data-theme=blue] {
+  --ac: #2146ff;
+  --ad: #1230c4;
+  --ac2: #8fc1ff;
+  --on: #fff;
+  --sh: 0
+}
+
+[data-theme=makoto] {
+  --ac: #0a64dc;
+  --ad: #0023b4;
+  --ac2: #22cefb;
+  --on: #fff;
+  --sh: .5
+}
+
+[data-theme=yu] {
+  --ac: #fffb00;
+  --ad: #000000;
+  --ac2: #000000;
+  --on: #050505;
+  --sh: .6
+}
+[data-theme=lavenza] {
+  --ac: #00cfad;
+  --ad: #000000;
+  --ac2: #000000;
+  --on: #050505;
+  --sh: .6
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--black);
+  color: var(--white);
+  font-family: Rubik, system-ui, sans-serif
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  color: inherit;
+  background: none
+}
+
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+em {
+  font-style: normal;
+  color: var(--ac)
+}
+
+:focus-visible {
+  outline: 3px solid var(--ac2);
+  outline-offset: 3px
+}
+
+h1,
+h2,
+.logo,
+.tag,
+#menu button,
+.cta,
+.links a,
+.pager,
+.card b {
+  font-family: Anton, Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 400
+}
+
+/* fundo: vídeos (a, b, c) e imagens (d, e) */
+.bg {
+  position: fixed;
+  inset: -2%;
+  opacity: 0;
+  background-size: cover;
+  background-position: center center;
+  transition: opacity .3s, translate .4s ease-out;
+  animation: drift 20s ease-in-out infinite alternate
+}
+
+video.bg {
+  width: 102%;
+  height: 100%;
+  object-fit: cover
+}
+
+
+
+body[data-bg=a] .bgA,
+body[data-bg=b] .bgB,
+body[data-bg=c] .bgC,
+body[data-bg=d] .bgD,
+body[data-bg=e] .bgE,
+body[data-bg=f] .bgF
+{
+  opacity: 0.7
+}
+
+.shade {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(0, 0, 0, var(--sh)) 0 30%, transparent 65%);
+  transition: opacity .3s
+}
+
+body[data-side=r] .shade {
+  opacity: 0
+}
+
+@keyframes drift {
+  to {
+    transform: scale(1.07) translateX(-1.5%)
+  }
+}
+
+/* topo e menu */
+.top {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 3px solid var(--white);
+  box-shadow: 4px 4px 0 var(--ac);
+  transform: skewX(-8deg);
+  transition: .3s
+}
+
+.avatar:hover {
+  transform: skewX(-8deg) rotate(-6deg) scale(1.1)
+}
+
+.logo {
+  font-size: 1.3rem;
+  line-height: 1;
+  text-shadow: 3px 3px 0 var(--ac)
+}
+
+#menu {
+  margin-left: auto;
+  display: flex;
+  gap: .6rem
+}
+
+#menu button {
+  padding: .55rem 1.1rem;
+  background: var(--white);
+  color: var(--black);
+  transform: skewX(-14deg) rotate(-1.5deg);
+  transition: .25s
+}
+
+#menu button:nth-child(even) {
+  transform: skewX(-14deg) rotate(1.5deg)
+}
+
+#menu button:hover {
+  background: var(--ac);
+  color: var(--on);
+  transform: skewX(-14deg) translateY(-6px) scale(1.08);
+  box-shadow: 5px 5px 0 var(--black)
+}
+
+#menu button.on {
+  background: var(--black);
+  color: var(--ac);
+  outline: 2px solid var(--ac)
+}
+
+/* slides */
+main {
+  position: fixed;
+  inset: 0;
+  padding: 6.5rem 2rem 5rem
+}
+
+.slide {
+  display: none;
+  max-width: 640px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem
+}
+
+.slide.active {
+  display: flex
+}
+
+.slide[data-side=r] {
+  margin-left: auto;
+  margin-right: 3vw
+}
+
+.r {
+  opacity: 0;
+  animation: in .6s calc(var(--i, 0)*.09s + .6s) cubic-bezier(.2, .8, .2, 1) forwards
+}
+
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateX(-60px) skewX(-10deg)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+h1 {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  line-height: .9;
+  text-shadow: 6px 6px 0 var(--ac);
+  rotate: -3deg
+}
+
+h1 em {
+  color: var(--white);
+  text-shadow: 6px 6px 0 var(--black)
+}
+
+h2 {
+  color: var(--on);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  background: var(--ac);
+  padding: .05em .5em;
+  clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+  rotate: -2deg
+}
+
+.tag {
+  background: var(--ac2);
+  color: var(--black);
+  padding: .2rem .9rem;
+  rotate: -2deg
+}
+
+.lead {
+  font-size: 1.15rem;
+  border-left: 5px solid var(--ac);
+  padding: .6rem 1rem;
+  background: rgba(5, 5, 5, .82);
+  max-width: 34rem;
+  text-shadow: 0 2px 8px #000
+}
+
+.box {
+  width: 100%;
+  background: rgba(5, 5, 5, .88);
+  border-left: 6px solid var(--ac);
+  padding: 1.2rem 1.4rem;
+  line-height: 1.6;
+  clip-path: polygon(0 0, 100% 0, 98% 100%, 0 100%)
+}
+
+.photo {
+  width: 170px;
+  height: 170px;
+  border: 4px solid var(--white);
+  box-shadow: 10px 10px 0 var(--ac);
+  rotate: -4deg;
+  overflow: hidden;
+  transition: .4s
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+.photo:hover {
+  rotate: 3deg;
+  scale: 1.06
+}
+
+/* cards */
+.grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: .9rem
+}
+
+.card {
+  background: var(--white);
+  color: var(--black);
+  padding: 1rem 1.3rem;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+  transition: .3s
+}
+
+.card b {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--ad);
+  transition: .3s
+}
+
+.card:hover {
+  background: var(--ac);
+  color: var(--on);
+  translate: 8px -6px
+}
+
+.card:hover b {
+  color: var(--on)
+}
+
+/* barras de progresso */
+.meters {
+  display: grid;
+  gap: 1rem
+}
+
+.meter span {
+  display: flex;
+  justify-content: space-between;
+  font-family: Anton, Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .05em
+}
+
+.meter i {
+  display: block;
+  height: 12px;
+  margin-top: .3rem;
+  background: rgba(255, 255, 255, .15);
+  transform: skewX(-20deg);
+  overflow: hidden
+}
+
+.meter i::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: var(--v);
+  background: var(--ac);
+  transform-origin: left;
+  animation: fill 1s 1.1s both;
+  transition: background .3s
+}
+
+.meter:hover i::after {
+  background: var(--ac2)
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0)
+  }
+}
+
+/* botões */
+.cta,
+.links a {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: .8rem 2rem;
+  background: var(--ac);
+  color: var(--on);
+  font-size: 1.3rem;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  transition: color .3s
+}
+
+.cta::before,
+.links a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--white);
+  translate: -101% 0;
+  transition: translate .35s
+}
+
+.cta:hover,
+.links a:hover {
+  color: var(--black)
+}
+
+.cta:hover::before,
+.links a:hover::before {
+  translate: 0
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem
+}
+
+/* navegação inferior */
+.pager {
+  position: fixed;
+  right: 2rem;
+  bottom: 1.5rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem
+}
+
+.pager button {
+  width: 48px;
+  height: 48px;
+  background: var(--white);
+  color: var(--black);
+  transform: skewX(-14deg);
+  transition: .25s
+}
+
+.pager button:hover {
+  background: var(--ac);
+  color: var(--on);
+  transform: skewX(-14deg) scale(1.15)
+}
+
+/* transição de tela (faixas vermelha, preta e branca) */
+#wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden
+}
+
+#wipe i {
+  position: absolute;
+  inset: 0 -30%;
+  transform: translateX(-130%) skewX(-20deg)
+}
+
+#wipe i:nth-child(1) {
+  background: var(--white)
+}
+
+#wipe i:nth-child(2) {
+  background: var(--ac)
+}
+
+#wipe i:nth-child(3) {
+  background: var(--black)
+}
+
+#wipe[data-theme=akechi] i:nth-child(2) {
+  background: var(--ac2)
+}
+
+@media(max-width:800px) {
+  .top {
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: .6rem 1rem
+  }
+
+  .logo {
+    display: none
+  }
+
+  #menu {
+    width: 100%;
+    margin: 0;
+    overflow-x: auto;
+    padding: .4rem .5rem .6rem
+  }
+
+  #menu button {
+    white-space: nowrap
+  }
+
+  main {
+    padding: 7.5rem 1rem 5rem;
+    overflow-y: auto
+  }
+
+  .slide,
+  .slide[data-side=r] {
+    margin: 0;
+    justify-content: flex-start
+  }
+
+  .pager {
+    right: 1rem;
+    bottom: 1rem
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .bg {
+    animation: none
+  }
+}
